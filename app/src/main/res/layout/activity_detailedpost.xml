@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="model"
+                  type="com.testapp.babylonplaceholder.presentation.feature.detailedpost.DetailedPostViewModel"/>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".presentation.feature.post.PostActivity">
+
+        <include android:id="@+id/postHolder"
+                 layout="@layout/card_post"
+                 app:model="@{model.post}"/>
+
+        <TextView
+                android:id="@+id/posterName"
+                app:layout_constraintTop_toBottomOf="@id/postHolder"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/totalComments"
+                android:padding="16dp"
+                tools:text="Jannie Du Toit"
+                android:text="@{model.username}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+        />
+
+        <TextView
+                android:id="@+id/totalComments"
+                app:layout_constraintTop_toBottomOf="@id/postHolder"
+                app:layout_constraintLeft_toRightOf="@id/posterName"
+                app:layout_constraintRight_toRightOf="parent"
+                android:padding="16dp"
+                android:textAlignment="textEnd"
+                tools:text="20 comments"
+                android:text="@{model.totalComments}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+        />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/posterName"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layoutAnimation="@anim/layout_animation_card_fall"
+                android:layout_height="0dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:items="@{model.comments}"
+                app:itemBinding="@{model.itemBinding}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
